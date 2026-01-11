@@ -26,13 +26,13 @@ Task Prioritizer is a full-stack web application that helps you organize tasks b
 React Fronted (Port 3000) <-HTTP-> Fast API Backend (Port 8000) --> PostgreSQL  
 
 Data Flow 
-1. Category Setup
+1. Category Setup  
    User --> Frontend --> POST /api/categories/bulk --> Database
    
-2. Task Creation
+2. Task Creation  
    User Input --> Frontend --> POST /api/tasks --> Scoring Service --> Calculate Urgency & Importance Scores & Assign Quadrant --> Database
 
-3. Task Display
+3. Task Display  
    Frontend --> GET /api/tasks --> Database --> Group by Quadrant --> Display
 
 
