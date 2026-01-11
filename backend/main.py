@@ -37,7 +37,6 @@ def root():
 
 
 # Category Endpoints
-
 @app.get("/api/categories", response_model=List[updatedCategory])
 def get_categories(db: Session = Depends(get_db)):
     """Retrieve all categories."""
@@ -93,9 +92,8 @@ def create_bulk_categories(request: CategorySetupRequest, db: Session = Depends(
     # Refresh all categories to get their assigned IDs
     for category in created_categories:
         db.refresh(category)
-    
-    return created_categories
 
+    return created_categories
 
 # Task Endpoints
 @app.post("/api/tasks", response_model=updatedTask)
@@ -109,8 +107,10 @@ def create_task(task: newTask, db: Session = Depends(get_db)):
     if not category:
         raise HTTPException(status_code=404, detail=f"Category with id {task.category_id} not found")
     
+    num_categories_created = db.query(Category).count()
+
     # Calculate scores
-    imp_score = calc_importance_score(task.importance, category.coefficient)
+    imp_score = calc_importance_score(task.importance, category.coefficient, num_categories_created)
     urgency_score = calc_urgency_score(task.due_date, task.estimated_effort_hours)
     quadrant = assign_quadrant(urgency_score, imp_score)
     

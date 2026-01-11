@@ -2,13 +2,13 @@ from sqlalchemy import create_engine, Column, Integer, String, Float, Boolean, D
 from sqlalchemy.orm import declarative_base, sessionmaker, Session, relationship
 from datetime import datetime, timezone
 
-# Database connection string based on docker-compose.yml
+# Database connection string 
 DATABASE_URL = "postgresql://app_user:app_password@localhost:5432/app_db"
 
-# Create SQLAlchemy engine
+# SQLAlchemy engine
 engine = create_engine(DATABASE_URL, echo=True)
 
-# Create session factory
+# Session factory
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 # Base class for models
